@@ -2,7 +2,7 @@
 #
 # =======================================================================
 #   @file   joy_control_receiver.py
-#   @brief  
+#   @brief
 #   @note
 #
 #   Copyright (C) 2020 Yasushi Oshima (oosmyss@gmail.com)
@@ -31,7 +31,7 @@ class JoyControlReceiver(object):
     def receive_joy_callback(self, message):
         # print('{0}, {1}, {2}, {3}'.format(
         #    message.axes[0], message.axes[1], message.axes[2], message.axes[3]))
-        
+
         if (self._sw_on_off == 1) and (message.buttons[0] == 0):
             if self._is_on:
                 self._is_on = False
@@ -86,14 +86,12 @@ class JoyControlReceiver(object):
             req.rotation = 0.0
         rospy.ServiceProxy('/pimouse_cmd', PiMouseCmd).call(req)
 
-
     def run(self):
         rospy.spin()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     rospy.init_node('joy_control_receiver')
     rospy.wait_for_service('/pimouse_cmd')
     joy_con = JoyControlReceiver()
     joy_con.run()
-
