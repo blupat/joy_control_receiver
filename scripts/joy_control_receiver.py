@@ -55,7 +55,7 @@ class JoyControlReceiver(object):
 
         req = PiMouseCmdRequest()
         if self._is_on and (not self._is_run) and (not self._is_face):
-            forward = message.axes[1] * 0.450
+            forward = message.axes[1] * 0.300
             rotation = 3.141592 * message.axes[2] * 90.0 / 180.0
             print('{0} [m/s], {1} [rad/s]'.format(forward, rotation))
             req.on = True
@@ -93,6 +93,7 @@ class JoyControlReceiver(object):
 
 if __name__=='__main__':
     rospy.init_node('joy_control_receiver')
+    rospy.wait_for_service('/pimouse_cmd')
     joy_con = JoyControlReceiver()
     joy_con.run()
 
